@@ -1,4 +1,5 @@
 import galleryItems from './js/gallery-items.js';
+import galleryCardTpl from './templates/gallery-card.hbs'
 import './styles.css';
 
 
@@ -9,25 +10,7 @@ const overlayDiv = document.querySelector('.lightbox__overlay');
 galleryContainer.insertAdjacentHTML('beforeend', imagesMarkup);
 
 function createImagesMarkup (galleryItems) {
-    return galleryItems.map(({preview, original, description }) => {
-        return`
-        <li class="gallery__item">
-        <a
-          class="gallery__link"
-          href="${original}"
-        >
-          <img
-            class="gallery__image"
-            src="${preview}"
-            data-source="${original}"
-            alt="${description}"
-          />
-        </a>
-      </li>
-      `
-    })
-    .join('');
-  
+    return galleryItems.map(galleryCardTpl).join('');
 }
 
 function stopDefAction(evt) {
@@ -89,10 +72,7 @@ function openModal (evt) {
   if(currentIndex === galleryItems.length){
     currentIndex = 0;
   }
-  // if(evt.key === 'ArrowLeft' && currentIndex === 0){
-  //   galleryItems.reverse();
-  // }
-
+  
   setModalImage(currentIndex);
   }) 
 }
